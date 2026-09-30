@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="30">
+  <title>K4-L3B Day 13 Monitoring &amp; LLMOps</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; }
+    body { margin: 0; padding: 2rem; background: #f4f7fb; color: #172033; }
+    header { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-bottom: 1.5rem; }
+    h1 { margin: 0; font-size: 1.6rem; }
+    .meta { color: #596579; font-size: .9rem; margin-top: .55rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
+    .panel { background: white; border: 1px solid #d8e0ec; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px #20304a12; min-height: 125px; }
+    h2 { margin: 0 0 1rem; font-size: 1rem; }
+    .value { font-size: 1.25rem; font-weight: 700; line-height: 1.5; }
+    .threshold { margin-top: .7rem; padding-top: .7rem; border-top: 1px solid #edf0f5; color: #40536d; font-size: .88rem; }
+    .latency-panel { grid-column: 1 / -1; }
+    .timeline-title { margin-top: 1.1rem; color: #40536d; font-size: .9rem; font-weight: 650; }
+    .timeline { display: block; width: 100%; height: auto; margin-top: .25rem; background: #fbfcfe; border-radius: 8px; }
+    .axis { stroke: #9aa8bb; stroke-width: 1; }
+    .axis-label { fill: #596579; font-size: 11px; }
+    .threshold-line { stroke: #d97706; stroke-width: 2; stroke-dasharray: 7 5; }
+    .threshold-label { fill: #b45309; font-size: 11px; font-weight: 650; }
+    .latency-line { fill: none; stroke: #4263eb; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+    .normal-point { fill: #4263eb; stroke: white; stroke-width: 1.5; }
+    .incident-point { fill: #dc2626; stroke: white; stroke-width: 1.5; }
+    .timeline-legend { color: #596579; font-size: .8rem; }
+    .timeline-legend span { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 .25rem 0 .8rem; }
+    .legend-normal { background: #4263eb; }
+    .legend-incident { background: #dc2626; }
+    .timeline-empty { margin-top: 1rem; color: #b45309; font-size: .9rem; }
+    footer { margin-top: 1.5rem; color: #596579; font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>K4-L3B Day 13 Monitoring &amp; LLMOps</h1>
+      <div class="meta">Time range: 60 minutes · Refresh: 30 seconds</div>
+    </div>
+    <div class="meta">Generated: 2026-09-30 16:25:40 UTC</div>
+  </header>
+  <main class="grid"><section class='panel latency-panel'><h2>Latency percentiles and TTFT</h2><div class='value'>P50 409.00 ms · P95 2887.00 ms · P99 4424.00 ms · TTFT P95 50.00 ms</div><div class='meta'>Unit: ms</div><div class='threshold'>Threshold: p95 lte 3000 ms</div>
+    <div class='timeline-title'>Latency timeline · baseline → challenge window</div>
+    <svg class='timeline' viewBox='0 0 760 230' role='img'
+         aria-label='Latency by timestamp with a 3000 millisecond threshold'>
+      <line x1='58' y1='188' x2='742' y2='188' class='axis'/>
+      <line x1='58' y1='18' x2='58' y2='188' class='axis'/>
+      <line x1='58' y1='85.1' x2='742' y2='85.1' class='threshold-line'/>
+      <text x='50' y='22' text-anchor='end' class='axis-label'>4955</text>
+      <text x='50' y='192' text-anchor='end' class='axis-label'>0</text>
+      <text x='742' y='79.1' text-anchor='end' class='threshold-label'>threshold 3000 ms</text>
+      <polyline points='58.0,154.4 58.2,173.0 58.4,174.4 58.6,173.8 58.8,173.2 59.0,173.1 59.2,174.3 59.4,174.0 59.5,174.3 59.7,174.3 366.4,158.0 366.6,174.2 368.4,174.9 368.6,174.9 368.8,174.9 368.9,175.1 369.1,174.7 369.3,174.8 369.5,174.9 369.6,175.0 369.8,175.1 370.0,174.8 430.6,154.9 430.8,174.8 430.9,174.8 431.1,174.8 431.3,170.4 431.5,174.8 431.7,174.9 431.9,174.9 432.1,175.0 432.2,174.8 569.8,68.5 571.1,89.1 572.4,88.9 573.7,89.1 575.0,89.0 653.1,36.2 654.3,96.9 655.5,97.0 656.7,96.9 658.0,96.6 659.2,96.9 660.4,96.9 661.6,97.0 662.8,96.9 664.0,97.0 742.0,96.8' class='latency-line'/>
+      <circle cx='58.0' cy='154.4' r='4' class='normal-point'><title>15:49:30 UTC — 978 ms</title></circle><circle cx='58.2' cy='173.0' r='4' class='normal-point'><title>15:49:30 UTC — 438 ms</title></circle><circle cx='58.4' cy='174.4' r='4' class='normal-point'><title>15:49:30 UTC — 396 ms</title></circle><circle cx='58.6' cy='173.8' r='4' class='normal-point'><title>15:49:31 UTC — 413 ms</title></circle><circle cx='58.8' cy='173.2' r='4' class='normal-point'><title>15:49:31 UTC — 432 ms</title></circle><circle cx='59.0' cy='173.1' r='4' class='normal-point'><title>15:49:32 UTC — 435 ms</title></circle><circle cx='59.2' cy='174.3' r='4' class='normal-point'><title>15:49:32 UTC — 398 ms</title></circle><circle cx='59.4' cy='174.0' r='4' class='normal-point'><title>15:49:33 UTC — 409 ms</title></circle><circle cx='59.5' cy='174.3' r='4' class='normal-point'><title>15:49:33 UTC — 399 ms</title></circle><circle cx='59.7' cy='174.3' r='4' class='normal-point'><title>15:49:33 UTC — 398 ms</title></circle><circle cx='366.4' cy='158.0' r='4' class='normal-point'><title>16:00:45 UTC — 873 ms</title></circle><circle cx='366.6' cy='174.2' r='4' class='normal-point'><title>16:00:46 UTC — 401 ms</title></circle><circle cx='368.4' cy='174.9' r='4' class='normal-point'><title>16:00:50 UTC — 383 ms</title></circle><circle cx='368.6' cy='174.9' r='4' class='normal-point'><title>16:00:50 UTC — 383 ms</title></circle><circle cx='368.8' cy='174.9' r='4' class='normal-point'><title>16:00:50 UTC — 381 ms</title></circle><circle cx='368.9' cy='175.1' r='4' class='normal-point'><title>16:00:51 UTC — 375 ms</title></circle><circle cx='369.1' cy='174.7' r='4' class='normal-point'><title>16:00:51 UTC — 389 ms</title></circle><circle cx='369.3' cy='174.8' r='4' class='normal-point'><title>16:00:52 UTC — 386 ms</title></circle><circle cx='369.5' cy='174.9' r='4' class='normal-point'><title>16:00:52 UTC — 381 ms</title></circle><circle cx='369.6' cy='175.0' r='4' class='normal-point'><title>16:00:52 UTC — 378 ms</title></circle><circle cx='369.8' cy='175.1' r='4' class='normal-point'><title>16:00:53 UTC — 377 ms</title></circle><circle cx='370.0' cy='174.8' r='4' class='normal-point'><title>16:00:53 UTC — 386 ms</title></circle><circle cx='430.6' cy='154.9' r='4' class='normal-point'><title>16:03:06 UTC — 966 ms</title></circle><circle cx='430.8' cy='174.8' r='4' class='normal-point'><title>16:03:06 UTC — 385 ms</title></circle><circle cx='430.9' cy='174.8' r='4' class='normal-point'><title>16:03:07 UTC — 385 ms</title></circle><circle cx='431.1' cy='174.8' r='4' class='normal-point'><title>16:03:07 UTC — 385 ms</title></circle><circle cx='431.3' cy='170.4' r='4' class='normal-point'><title>16:03:07 UTC — 513 ms</title></circle><circle cx='431.5' cy='174.8' r='4' class='normal-point'><title>16:03:08 UTC — 386 ms</title></circle><circle cx='431.7' cy='174.9' r='4' class='normal-point'><title>16:03:08 UTC — 382 ms</title></circle><circle cx='431.9' cy='174.9' r='4' class='normal-point'><title>16:03:09 UTC — 382 ms</title></circle><circle cx='432.1' cy='175.0' r='4' class='normal-point'><title>16:03:09 UTC — 380 ms</title></circle><circle cx='432.2' cy='174.8' r='4' class='normal-point'><title>16:03:09 UTC — 384 ms</title></circle><circle cx='569.8' cy='68.5' r='4' class='incident-point'><title>16:08:11 UTC — 3483 ms</title></circle><circle cx='571.1' cy='89.1' r='4' class='normal-point'><title>16:08:14 UTC — 2883 ms</title></circle><circle cx='572.4' cy='88.9' r='4' class='normal-point'><title>16:08:16 UTC — 2887 ms</title></circle><circle cx='573.7' cy='89.1' r='4' class='normal-point'><title>16:08:19 UTC — 2883 ms</title></circle><circle cx='575.0' cy='89.0' r='4' class='normal-point'><title>16:08:22 UTC — 2885 ms</title></circle><circle cx='653.1' cy='36.2' r='4' class='incident-point'><title>16:11:13 UTC — 4424 ms</title></circle><circle cx='654.3' cy='96.9' r='4' class='normal-point'><title>16:11:16 UTC — 2655 ms</title></circle><circle cx='655.5' cy='97.0' r='4' class='normal-point'><title>16:11:19 UTC — 2653 ms</title></circle><circle cx='656.7' cy='96.9' r='4' class='normal-point'><title>16:11:21 UTC — 2654 ms</title></circle><circle cx='658.0' cy='96.6' r='4' class='normal-point'><title>16:11:24 UTC — 2665 ms</title></circle><circle cx='659.2' cy='96.9' r='4' class='normal-point'><title>16:11:27 UTC — 2654 ms</title></circle><circle cx='660.4' cy='96.9' r='4' class='normal-point'><title>16:11:29 UTC — 2654 ms</title></circle><circle cx='661.6' cy='97.0' r='4' class='normal-point'><title>16:11:32 UTC — 2653 ms</title></circle><circle cx='662.8' cy='96.9' r='4' class='normal-point'><title>16:11:35 UTC — 2656 ms</title></circle><circle cx='664.0' cy='97.0' r='4' class='normal-point'><title>16:11:37 UTC — 2653 ms</title></circle><circle cx='742.0' cy='96.8' r='4' class='normal-point'><title>16:14:28 UTC — 2657 ms</title></circle>
+      <text x='58' y='218' class='axis-label'>15:49:30 UTC</text>
+      <text x='742' y='218' text-anchor='end' class='axis-label'>16:14:28 UTC</text>
+    </svg>
+    <div class='timeline-legend'><span class='legend-normal'></span> within threshold
+      <span class='legend-incident'></span> above threshold</div>
+    </section><section class='panel'><h2>Request traffic</h2><div class='value'>48 requests · 0.80/min</div><div class='meta'>Unit: requests_per_minute</div><div class='threshold'>Threshold: rate_per_minute gte 1 requests_per_minute</div></section><section class='panel'><h2>Error rate and retrieval success</h2><div class='value'>Error 0.00% · Retrieval success 100.00% · Failures 0</div><div class='meta'>Unit: percent</div><div class='threshold'>Threshold: error_rate_pct lte 2 percent</div></section><section class='panel'><h2>Cost over time</h2><div class='value'>Total $0.102633 · Avg $0.002138</div><div class='meta'>Unit: usd</div><div class='threshold'>Threshold: total lte 2.5 usd</div></section><section class='panel'><h2>Input and output tokens</h2><div class='value'>Input 2281 · Output 6386</div><div class='meta'>Unit: tokens</div><div class='threshold'>Threshold: sum_by_field lte 50000 tokens</div></section><section class='panel'><h2>Quality proxy</h2><div class='value'>Mean 0.8750</div><div class='meta'>Unit: score_0_to_1</div><div class='threshold'>Threshold: mean gte 0.75 score_0_to_1</div></section></main>
+  <footer>Source: data/logs.jsonl · Six panels follow config/dashboard.yaml.</footer>
+</body>
+</html>

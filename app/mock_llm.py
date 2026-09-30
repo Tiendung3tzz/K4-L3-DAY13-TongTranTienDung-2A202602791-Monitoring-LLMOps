@@ -5,6 +5,8 @@ import time
 from dataclasses import dataclass
 
 from .incidents import STATE
+from .pii import summarize_text
+from .tracing import get_langfuse_client, observe
 
 
 @dataclass
@@ -25,6 +27,7 @@ class FakeLLM:
     def __init__(self, model: str = "claude-sonnet-4-5") -> None:
         self.model = model
 
+    @observe(name="generation", as_type="generation", capture_input=False, capture_output=False)
     def generate(self, prompt: str) -> FakeResponse:
         started = time.perf_counter()
         time.sleep(0.05)  # mô phỏng thời điểm token đầu tiên sẵn sàng
@@ -37,6 +40,19 @@ class FakeLLM:
         answer = (
             "Starter answer. You should improve this output logic and add better quality checks. "
             "Use retrieved context and keep responses concise."
+        )
+        input_cost = (input_tokens / 1_000_000) * 3
+        output_cost = (output_tokens / 1_000_000) * 15
+        get_langfuse_client().update_current_generation(
+            model=self.model,
+            input={"prompt_preview": summarize_text(prompt)},
+            output={"answer_preview": summarize_text(answer)},
+            usage_details={"input": input_tokens, "output": output_tokens},
+            cost_details={
+                "input": round(input_cost, 6),
+                "output": round(output_cost, 6),
+                "total": round(input_cost + output_cost, 6),
+            },
         )
         return FakeResponse(
             text=answer,

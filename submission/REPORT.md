@@ -4,10 +4,10 @@
 
 ## 1. Thông tin học viên
 
-- **Họ và tên:**
-- **MSSV:**
+- **Họ và tên: Tống Trần Tiến Dũng**
+- **MSSV: 2A202602791**
 - **Lớp:** K4-L3B
-- **Repository URL:**
+- **Repository URL:https://github.com/Tiendung3tzz/K4-L3-DAY13-TongTranTienDung-2A202602791-Monitoring-LLMOps**
 - **Commit SHA cuối:**
 - **Challenge ID:**
 - **Tên project Langfuse cá nhân:** `day13-k4-l3b-<MSSV>`
@@ -25,9 +25,9 @@
 | PII redaction | `evidence/05-pii-redaction.png` |
 | Trace list | `evidence/06-trace-list.png` |
 | Trace waterfall | `evidence/07-trace-waterfall.png` |
-| Trace metadata | `evidence/08-trace-metadata.png` |
+| Trace metadata | `evidence/08a-trace-metadata.png`,`evidence/08b-trace-metadata.png` |
 | Prompt versions | `evidence/09-prompt-versions.png` |
-| Prompt rollback | `evidence/10-prompt-rollback.png` |
+| Prompt rollback | `evidence/10a-prompt-rollback.png`, `evidence/10b-prompt-rollback.png`|
 | Dashboard runtime | `evidence/11-dashboard-overview.png` |
 | Incident metric | `evidence/12-incident-metric.png` |
 | Incident log | `evidence/13-incident-log.png` |
@@ -37,13 +37,13 @@
 
 | Nội dung | Baseline | Kết quả cuối | Nhận xét |
 |---|---|---|---|
-| `validate_logs.py` | | | |
-| `validate_dashboard.py` | | | |
-| `pytest` | | | |
-| Số traces hợp lệ | | | |
-| Số PII leak | | | |
-| Latency P95 / TTFT P95 | | | |
-| Retrieval success rate | | | |
+| `validate_logs.py` | 30/100 | 100/100 | Required/enrichment thiếu 0, PII leak 0 |
+| `validate_dashboard.py` | 6/6 | 6/6 | Dashboard contract hợp lệ |
+| `pytest` | 22 tests | 24 tests collected | Local sandbox còn lỗi quyền thư mục temp; không phải lỗi assertion CP2 |
+| Số traces hợp lệ | — | Chưa xác minh cloud | Đã chạy workload; cần đối chiếu trace list Langfuse khi endpoint hoạt động |
+| Số PII leak | 0 | 0 | Đạt |
+| Latency P95 / TTFT P95 | 1593 ms / 51 ms | 3640 ms / 50 ms | Challenge `rag_slow` làm latency vượt ngưỡng 2000 ms |
+| Retrieval success rate | — | 100% | Không có retrieval failure |
 
 ## 4. Logging và PII
 
@@ -74,14 +74,14 @@
 
 ## 7. Điều tra challenge
 
-- **Challenge ID:**
-- **Khoảng thời gian điều tra:**
-- **Triệu chứng từ metrics:**
-- **Log line và correlation ID liên quan:**
-- **Trace ID và span gây ảnh hưởng:**
-- **Root cause:**
-- **Fix action:**
-- **Preventive measure:**
+- **Challenge ID:** `day13-k4-l3b-monitoring-llmops-v1` (`rag_slow`, seed `1312`).
+- **Khoảng thời gian điều tra:** `2026-09-30T05:17:56Z`–`2026-09-30T05:18:11Z` (UTC).
+- **Triệu chứng từ metrics:** Baseline có latency P95 `1593 ms`, TTFT P95 `51 ms`. Challenge mới nhất có latency P95 `3640 ms`, vượt threshold `2000 ms` và tăng `2047 ms` (~2.29x); TTFT P95 vẫn `50 ms`, retrieval success `100%`.
+- **Log line và correlation ID liên quan:** `response_sent` lúc `2026-09-30T05:17:59.857925Z`, `correlation_id=req-484912de`, `latency_ms=3640`, `tool_name=retrieval`, `tool_success=true`, feature `monitoring`.
+- **Trace ID và span gây ảnh hưởng:** Chưa xác minh được do endpoint Langfuse timeout; cần mở trace có `correlation_id=req-484912de` và ghi trace ID cùng span `retrieval` vào đây.
+- **Root cause:** Provisional: challenge `rag_slow` làm retrieval chậm khoảng 2.5 giây; cần bổ sung trace waterfall để hoàn tất bằng chứng thứ ba.
+- **Fix action:** Đã tắt incident sau workload bằng `python scripts/inject_incident.py --disable`; health check xác nhận cả ba incident đều `false`.
+- **Preventive measure:** Giữ alert `HighLatencyP95` ở P95 `>3000 ms` trong `5m`, lọc log theo `correlation_id`, sau đó đối chiếu retrieval/generation span trước khi rollback hoặc mitigation.
 
 > Gợi ý cách viết ngắn, không thay cho evidence thực tế: "Metric cho thấy `[latency/error/cost/quality]` bất thường trong `[khoảng thời gian]`. Log line `[event]` có `correlation_id=[...]` đại diện cho request bị ảnh hưởng. Trace cùng `correlation_id` cho thấy span `[retrieval/generation/prompt/tool]` có dấu hiệu `[chậm/lỗi/token tăng]`. Root cause là `[nguyên nhân suy ra từ evidence]`. Fix action là `[hành động khôi phục]`; preventive measure là `[alert/runbook/test/guardrail để ngăn tái diễn]`."
 

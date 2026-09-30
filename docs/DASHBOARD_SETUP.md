@@ -12,7 +12,7 @@ Lab không bắt buộc một công cụ dashboard cụ thể. Bạn có thể d
 |---|---|---|
 | Latency | `response_sent.latency_ms/ttft_ms` | latency P50/P95/P99 và TTFT P95 |
 | Traffic | `request_received` | count, request/phút |
-| Errors | `request_received`, `request_failed`, `error_type`, `tool_success` | error rate, breakdown và retrieval success |
+| Errors | `request_received`, `response_sent`, `request_failed`, `error_type`, `tool_success` | error rate, breakdown và retrieval success |
 | Cost | `response_sent.cost_usd` | tổng theo phút và toàn cửa sổ |
 | Tokens | `response_sent.tokens_in/tokens_out` | tổng theo từng field |
 | Quality | `response_sent.quality_score` | mean |
@@ -30,6 +30,14 @@ Giữ time range mặc định 60 phút, refresh 30 giây và hiển thị thres
 ```bash
 python scripts/validate_dashboard.py
 ```
+
+Repo cũng có dashboard HTML không cần cài thêm thư viện vẽ biểu đồ. Chạy sau khi đã có log:
+
+```bash
+python scripts/dashboard.py --output dashboard.html
+```
+
+File HTML tự refresh mỗi 30 giây, lấy cửa sổ 60 phút gần nhất và hiển thị đủ sáu panel cùng threshold từ `config/dashboard.yaml`.
 
 Validator kiểm tra cấu trúc contract; nó không thể chứng minh biểu đồ trong ảnh dùng đúng dữ liệu. Evidence runtime vẫn bắt buộc.
 
