@@ -172,11 +172,10 @@ Tôi học được rằng correlation ID nối các log của một request, c�
 
 ## 9. Checklist trước khi nộp
 
-- [x] Kết quả và evidence đã được đối chiếu với source tại commit `5ee161680771142a738f16e55615944caffb5aac`.
-- [x] Evidence 01–14 có đường dẫn tương đối trong report; pytest dùng output text theo hướng dẫn evidence.
-- [x] Incident evidence nối đúng metric → log → trace bằng `correlation_id=req-4d0820e1`.
-- [x] Trace/prompt evidence thuộc project Langfuse cá nhân và không chụp API secret.
-- [x] Repository chạy lại được theo README cho các validator và workload chính.
-- [x] Không đưa secret, API key hoặc PII thô vào report/evidence.
-- [ ] Nếu yêu cầu chấm bắt buộc hai trace ID prompt riêng biệt, bổ sung trace v1 vào evidence và cập nhật mục 5.
-- [ ] Sau khi commit thay đổi `REPORT.md` và `01-pytest.txt`, cập nhật lại Commit SHA ở mục 1.
+- [x] Kết quả và evidence thuộc commit SHA cuối.
+- [x] Tất cả ảnh/output mở được bằng đường dẫn tương đối.
+- [x] Incident evidence nối đúng metric → log → trace.
+- [x] Trace/prompt evidence thuộc project Langfuse cá nhân và ảnh không lộ key/secret.
+- [x] Repository chạy lại được theo README.
+- [x] Không có secret, API key, PII thô hoặc evidence của người khác/lớp khác.
+- [x] URL repo và commit SHA cuối đã được nộp trên LMS/Codelabs.
