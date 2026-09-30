@@ -8,9 +8,7 @@
 - **Repository URL:** https://github.com/Tiendung3tzz/K4-L3-DAY13-TongTranTienDung-2A202602791-Monitoring-LLMOps
 - **Commit SHA cuối được đối chiếu:** `5ee161680771142a738f16e55615944caffb5aac`
 - **Challenge ID:** `day13-k4-l3b-monitoring-llmops-v1`
-- **Project Langfuse cá nhân:** `day13-k4-l3b-2A202602791`
-
-SHA ở trên là `HEAD` tại thời điểm đối chiếu source và evidence. File báo cáo này được hoàn thiện sau đó; khi commit thay đổi cuối cùng, cần thay dòng SHA bằng SHA mới của commit chứa báo cáo.
+- **Project Langfuse:** `day13-k4-l3b-2A202602791`
 
 ## 2. Evidence index
 
