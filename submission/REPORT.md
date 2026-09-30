@@ -18,7 +18,7 @@ Các đường dẫn dưới đây là đường dẫn tương đối từ thư 
 
 | Evidence | Đường dẫn |
 |---|---|
-| Pytest cuối | `evidence/01-pytest.txt` |
+| Pytest cuối | `01-pytest.png` |
 | Log validator | `evidence/02-log-validator.png` |
 | Dashboard validator | `evidence/03-dashboard-validator.png` |
 | Structured log | `evidence/04-structured-log.png` |

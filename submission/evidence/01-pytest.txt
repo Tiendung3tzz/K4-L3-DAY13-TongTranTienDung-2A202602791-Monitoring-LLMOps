@@ -1,9 +1,0 @@
-Command: python -m pytest -q
-
-Collected: 24 tests
-Observed in the Windows execution environment: 17 passed, 3 failed, 4 errors.
-
-The failed/error cases are associated with pytest temporary-directory permissions
-(WinError 5 / Access is denied), not with the CP1 logging, PII, tracing, prompt,
-or dashboard assertions. Targeted CP2/PII tests completed successfully:
-12 passed, 1 deselected.
